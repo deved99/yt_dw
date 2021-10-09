@@ -1,0 +1,56 @@
+#!/usr/bin/env python3
+# STD
+from os import chdir,listdir,makedirs
+from os.path import expanduser,isdir
+from subprocess import run
+from sys import argv
+# External
+import youtube_dl
+
+outdir = expanduser("~/Videos/Youtube")
+
+def main():
+    if len(argv) == 2:
+        start(argv[1])
+    else:
+        print("Exactly one argument needed")
+    return
+
+def start(u):
+    if not isdir(outdir):
+        makedirs(outdir)
+    chdir(outdir)
+    notify("Started downloading: "+u)
+    r = dl(u)
+    if r == 0:
+        m = "Finished downloading: "+u
+    else:
+        m = "Failed downloading: "+u
+    notify(m)
+    return
+
+def notify(m):
+    p = run(["notify-send", m])
+    return p.returncode
+
+def dl(u):
+    opts = {
+        'format': "best[height<=720]",
+        'outtmpl': getName()
+    }
+    try:
+        with youtube_dl.YoutubeDL(opts) as y:
+            y.download([u])
+        r = 0
+    except Exception:
+        r = 1
+    return r
+
+def getName():
+    # Get latest index
+    n = len( listdir(".") )
+    s = "{:0>3} [%(uploader)s] %(title)s.%(ext)s".format(n)
+    return s
+
+if __name__ == "__main__":
+    main()
