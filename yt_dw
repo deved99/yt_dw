@@ -6,7 +6,7 @@ from shutil import copyfile
 from subprocess import run
 from sys import argv
 # External
-import youtube_dl
+import yt_dlp
 
 outdir = expanduser("~/.cache/yt_dw")
 destdir = expanduser("~/Videos/Youtube")
@@ -42,7 +42,7 @@ def dl(u):
         'outtmpl': "%(id)s [%(uploader)s] %(title)s.%(ext)s"
     }
     try:
-        with youtube_dl.YoutubeDL(opts) as y:
+        with yt_dlp.YoutubeDL(opts) as y:
             y.download([u])
         for f in listdir("."):
             if not f.endswith(".part"):

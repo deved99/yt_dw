@@ -1,5 +1,5 @@
 # yt_dw
-A [youtube-dl](https://github.com/ytdl-org/youtube-dl)
+A [yt-dlp](https://github.com/yt-dlp/yt-dlp)
 wrapper: downloads everything to `~/Videos/Youtube`,
 filenames are like this:
 ```
