@@ -38,7 +38,7 @@ def notify(m):
 
 def dl(u):
     opts = {
-        'format': "best[height<=720]",
+        'format': "best[height<=480]",
         'outtmpl': "%(id)s [%(uploader)s] %(title)s.%(ext)s"
     }
     try:
